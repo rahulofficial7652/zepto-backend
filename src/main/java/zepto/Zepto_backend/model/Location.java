@@ -23,7 +23,9 @@ public class Location {
    String addressLine2;
    String addressLine3;
    String city;
+   String email;
    String country;
+   boolean isPrimary;
    String state;
    int pincode;
 
