@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Invitation</title>
+    <style>
+        body {
+          font-family: 'Inter', Arial, sans-serif;
+          background-color: #f7f8fa;
+          color: #333;
+          margin: 0;
+          padding: 0;
+        }
+
+
+        .container {
+          max-width: 600px;
+          background: #ffffff;
+          margin: 40px auto;
+          border-radius: 10px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          padding: 30px;
+        }
+
+        .header {
+          text-align: center;
+          border-bottom: 1px solid #eee;
+           background: #red;
+
+        }
+
+        .header h2 {
+          color: #2b2b2b;
+          margin: 0;
+          padding-bottom: 20px;
+        }
+
+        .content {
+          margin: 20px 0;
+          text-align: center;
+        }
+
+        .content p {
+          font-size: 16px;
+          line-height: 1.5;
+        }
+
+        .btn-group {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-top: 30px;
+        }
+
+        a.button {
+          text-decoration: none;
+          color: #fff;
+          padding: 12px 25px;
+          border-radius: 6px;
+          font-weight: 600;
+          display: inline-block;
+          transition: all 0.2s ease;
+        }
+
+        a.accept {
+          background-color: #28a745;
+
+        }
+        a.accept:hover {
+          background-color: #218838;
+          cursor: pointer;
+        }
+
+        a.reject {
+          background-color: #dc3545;
+
+        }
+        a.reject:hover {
+          background-color: #c82333;
+          cursor: pointer;
+        }
+
+        .footer {
+          text-align: center;
+          margin-top: 40px;
+          font-size: 13px;
+          color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>You're Invited as an Application Admin 🎉</h2>
+    </div>
+
+    <div class="content">
+        <p>Hello <strong th:text="${adminName}">Admin</strong>,</p>
+        <p>
+            <strong th:text="${mainUserName}">Main User</strong> has invited you to join the
+            <strong th:text="${appName}">Zepto-like Platform</strong> as an application admin.
+        </p>
+
+        <div class="btn-group">
+            <a th:href="${acceptUrl}" class="button accept">Accept Invitation</a>
+            <a th:href="${rejectUrl}" class="button reject">Reject</a>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 14px; color: #666;">
+            If you don’t recognize this invitation, you can safely ignore this email.
+        </p>
+    </div>
+
+    <div class="footer">
+        © 2025 Zepto Platform. All rights reserved.
+    </div>
+</div>
+
+</body>
+</html>
