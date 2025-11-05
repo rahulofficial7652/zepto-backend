@@ -1,15 +1,16 @@
 package zepto.Zepto_backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,8 +18,10 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    private Long phone;
+    private String phone;
     private String userType;
+    private String status;
+
 
 
 }

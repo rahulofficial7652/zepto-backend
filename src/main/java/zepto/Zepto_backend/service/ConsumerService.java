@@ -17,7 +17,7 @@ public class ConsumerService {
     MappingUtility mappingUtility;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
     @Autowired
     LocationService locationService;
 
@@ -26,13 +26,10 @@ public class ConsumerService {
         // after creating consumer model object we will be saving it in user table
         // utility classes: these classes are the helper classes which is help for mapping the data
         User consumer = mappingUtility.mapToUser(consumerRequestBody);
-        consumer = this.saveUser(consumer);
+        consumer = userService.saveUser(consumer);
 
         Location location = mappingUtility.mapConsumerRBToLocation(consumerRequestBody, consumer);
         locationService.saveLocation(location);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
 }

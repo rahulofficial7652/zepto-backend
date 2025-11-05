@@ -2,6 +2,8 @@ package zepto.Zepto_backend.utility;
 
 import org.springframework.stereotype.Component;
 import zepto.Zepto_backend.dtos.ConsumerRequestBody;
+import zepto.Zepto_backend.dtos.InviteAdminRequestBody;
+import zepto.Zepto_backend.enums.UserStatues;
 import zepto.Zepto_backend.enums.UserType;
 import zepto.Zepto_backend.model.Location;
 import zepto.Zepto_backend.model.User;
@@ -13,8 +15,9 @@ public class MappingUtility {
         user.setUserType(UserType.CONSUMER.toString());
         user.setUserName(String.valueOf(consumerRequestBody.getUserName()));
         user.setEmail(consumerRequestBody.getEmail());
-        user.setPhone(Long.valueOf(consumerRequestBody.getPhone()));
+        user.setPhone((consumerRequestBody.getPhone()));
         user.setPassword(consumerRequestBody.getPassword());
+        user.setStatus(UserStatues.ACTIVE.toString());
         return user;
     }
     public Location mapConsumerRBToLocation(ConsumerRequestBody consumerRequestBody, User user){
@@ -30,5 +33,14 @@ public class MappingUtility {
         location.setState(consumerRequestBody.getState());
         return location;
 
+    }
+    public User mapInviteAdminToUser(InviteAdminRequestBody inviteAdminRequestBody){
+        User user = new User();
+        user.setStatus(UserStatues.INACTIVE.toString());
+        user.setUserType(UserType.ZEPTO_APP_ADMIN.toString());
+        user.setUserName(inviteAdminRequestBody.getUserName());
+        user.setPassword("TempPass123");
+        user.setPhone(inviteAdminRequestBody.getPhone());
+        return user;
     }
 }
