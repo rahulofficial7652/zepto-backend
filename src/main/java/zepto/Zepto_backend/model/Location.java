@@ -17,7 +17,7 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @ManyToOne
-    //@JoinColumn(name="user_id")
+    @JoinColumn(name="user_id")
     User user;
    String addressLine1;
    String addressLine2;

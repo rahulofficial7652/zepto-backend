@@ -28,7 +28,7 @@ public class MailService {
         context.setVariable("adminName", appAdmin.getUserName());
         context.setVariable("mainUserName", "Maint");
         context.setVariable("appName", "Zepto");
-        context.setVariable("acceptUrl", "https://www.google.com/");
+        context.setVariable("acceptUrl", "http://localhost:8080/api/v1/admin/invite/accept"+ appAdmin.getId());
         context.setVariable("rejectUrl", "https://www.google.com/");
 
 

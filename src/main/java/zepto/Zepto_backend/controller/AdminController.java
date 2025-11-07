@@ -13,7 +13,7 @@ import zepto.Zepto_backend.service.AdminService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/vi/admin")
+@RequestMapping("/api/v1/admin")
 public class AdminController {
 
     @Autowired
@@ -31,6 +31,18 @@ public class AdminController {
             return new ResponseEntity(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
         catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("invite/accept/{userID}")
+    public ResponseEntity acceptInvite(@PathVariable UUID userID){
+        // here we call the admin service to accept the
+        try{
+            adminService.acceptInvite(userID);
+            return new ResponseEntity("Invite Accepted Successfully", HttpStatus.OK);
+        }catch (UserNotFountException e){
+            return  new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

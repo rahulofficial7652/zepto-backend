@@ -39,6 +39,7 @@ public class MappingUtility {
         user.setStatus(UserStatues.INACTIVE.toString());
         user.setUserType(UserType.ZEPTO_APP_ADMIN.toString());
         user.setUserName(inviteAdminRequestBody.getUserName());
+        user.setEmail(inviteAdminRequestBody.getEmail());
         user.setPassword("TempPass123");
         user.setPhone(inviteAdminRequestBody.getPhone());
         return user;

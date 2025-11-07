@@ -3,6 +3,7 @@ package zepto.Zepto_backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zepto.Zepto_backend.dtos.InviteAdminRequestBody;
+import zepto.Zepto_backend.enums.UserStatues;
 import zepto.Zepto_backend.exceptions.UnAuthorizedExceprion;
 import zepto.Zepto_backend.exceptions.UserNotFountException;
 import zepto.Zepto_backend.model.User;
@@ -23,21 +24,39 @@ public class AdminService {
         @Autowired
         MailService mailService;
         public void inviteAdmin(InviteAdminRequestBody inviteAdminRequestBody, UUID userId){
-           User maintUser = userService.getUserById(userId);
+
+
+            User maintUser = userService.getUserById(userId);
            if(maintUser == null){
                throw new UserNotFountException(
-                       String.format("User not found with id: %s", userId.toString())
-               );
+                       String.format("User not found with id: %s", userId.toString()));
            }
            if(!userService.isMaintUser(maintUser) ){
-             throw new UnAuthorizedExceprion(
-                     String.format("User with id %s is not allowed to perform invite-admn open")
-             );
+               throw new UnAuthorizedExceprion(
+                       String.format("User with id %s is not allowed to perform invite-admin open", userId)
+               );
+
            }
 
             User admin = mappingUtility.mapInviteAdminToUser(inviteAdminRequestBody);
             admin = userService.saveUser(admin);
 
             mailService.sendMailToInviteAppAdmin(admin);
+    }
+    public void acceptInvite(UUID userID){
+          User user=  userService.getUserById(userID);
+          if(user == null){
+              throw new UserNotFountException(
+                      String.format("User not found with id: %s", userID.toString()));
+          }
+          if(!userService.isMaintUser(user) ){
+              throw new UserNotFountException(
+                      String.format("User with id %s is not allowed to perform invite-admin open", userID)
+              );
+
+          }
+          user.setStatus(UserStatues.ACTIVE.toString());
+          userService.saveUser(user);
+
     }
 }

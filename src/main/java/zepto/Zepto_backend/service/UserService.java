@@ -24,4 +24,5 @@ public class UserService {
     public boolean isMaintUser(User user){
         return user.getUserType().equals(UserType.MAINT.toString());
     }
+    public void updateUser(User user){userRepository.save(user);}
 }
