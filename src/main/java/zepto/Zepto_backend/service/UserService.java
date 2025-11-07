@@ -25,4 +25,8 @@ public class UserService {
         return user.getUserType().equals(UserType.MAINT.toString());
     }
     public void updateUser(User user){userRepository.save(user);}
+    public boolean isAppAdmin(User user){
+        return user.getUserType().equals((UserType.ZEPTO_APP_ADMIN).toString());
+
+    }
 }

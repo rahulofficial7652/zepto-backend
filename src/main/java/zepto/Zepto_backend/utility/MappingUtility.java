@@ -34,9 +34,14 @@ public class MappingUtility {
         return location;
 
     }
-    public User mapInviteAdminToUser(InviteAdminRequestBody inviteAdminRequestBody){
+    public User mapInviteAdminToUser(InviteAdminRequestBody inviteAdminRequestBody, String userType){
         User user = new User();
         user.setStatus(UserStatues.INACTIVE.toString());
+        if(userType.equals(UserType.WAREHOUSE_ADMIN)){
+            user.setUserType(UserType.WAREHOUSE_ADMIN.toString());
+        }else{
+            user.setUserType(UserType.ZEPTO_APP_ADMIN.toString());
+        }
         user.setUserType(UserType.ZEPTO_APP_ADMIN.toString());
         user.setUserName(inviteAdminRequestBody.getUserName());
         user.setEmail(inviteAdminRequestBody.getEmail());
