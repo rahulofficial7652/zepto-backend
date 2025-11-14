@@ -29,4 +29,8 @@ public class UserService {
         return user.getUserType().equals((UserType.ZEPTO_APP_ADMIN).toString());
 
     }
+    
+    public User getUserByEmail(String email){
+        return this.userRepository.findByEmail(email).orElse(null);
+    }
 }

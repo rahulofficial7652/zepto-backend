@@ -17,21 +17,32 @@ public class WareHouseAdminService {
 
     @Autowired
     MappingUtility mappingUtility;
+
     @Autowired
     UserService userService;
-    public void inviteWareHouseAdmin(InviteAdminRequestBody adminRequestBody, UUID userId){
+
+    @Autowired
+    MailService mailService;
+
+    public void inviteWareHouseAdmin(InviteAdminRequestBody adminRequestBody, UUID userId) {
         User user = userService.getUserById(userId);
-        if(user == null){
-            throw new UserNotFountException(
-                    String.format("User not found with id: %s", userId.toString()));
+        if (user == null) {
+            throw new UserNotFountException(String.format("User not found with id: %s", userId.toString()));
         }
-        if(userService.isMaintUser(user) == false && userService.isAppAdmin(user) == false){
-            throw new UnAuthorizedExceprion(
-                    String.format("User with id %s is not allowed to perform invite-admin open", userId)
-            );
+        if (userService.isMaintUser(user) == false && userService.isAppAdmin(user) == false) {
+            throw new UnAuthorizedExceprion(String.format("User with id %s is not allowed to perform invite-admin open", userId));
         }
-        User warehouseAdmin = mappingUtility.mapInviteAdminToUser(adminRequestBody, UserType.WAREHOUSE_ADMIN.toString());
-        userService.saveUser(warehouseAdmin);
+
+        // Check if user already exists by email
+        User warehouseAdmin = userService.getUserByEmail(adminRequestBody.getEmail());
+
+        // Only create new user if one doesn't exist
+        if (warehouseAdmin == null) {
+            warehouseAdmin = mappingUtility.mapInviteAdminToUser(adminRequestBody, UserType.WAREHOUSE_ADMIN.toString());
+            userService.saveUser(warehouseAdmin);
+        }
+
+        mailService.sendMailToInviteAdmin(warehouseAdmin, user.getUserName(), UserType.WAREHOUSE_ADMIN.toString());
 
     }
 }

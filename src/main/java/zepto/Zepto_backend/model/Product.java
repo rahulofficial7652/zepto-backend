@@ -1,13 +1,12 @@
 package zepto.Zepto_backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,6 +23,6 @@ public class Product {
     @Column(nullable = false)
     String manufacture;
     int quantity;
-
-
+    int basePrice;
+    String productImageLink;
 }

@@ -25,6 +25,6 @@ public class WareHouseItem {
     int totalQuantity;
 
     @OneToMany
-    List<WareHouseItem> wareHouseItems;
+    private List<WareHouseItem> wareHouseItems;
 
 }

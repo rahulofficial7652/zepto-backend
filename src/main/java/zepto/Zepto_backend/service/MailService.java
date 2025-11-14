@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
+import zepto.Zepto_backend.enums.UserType;
 import zepto.Zepto_backend.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.context.Context;
@@ -23,12 +24,19 @@ public class MailService {
     @Autowired
     TemplateEngine templateEngine;
 
-    public void sendMailToInviteAppAdmin(User appAdmin){
+    public void sendMailToInviteAdmin(User appAdmin, String invitername, String role){
         Context context = new Context();
         context.setVariable("adminName", appAdmin.getUserName());
-        context.setVariable("mainUserName", "Maint");
+        context.setVariable("mainUserName", invitername );
+        context.setVariable("role", appAdmin.getUserType());
+        if(role.equals(UserType.ZEPTO_APP_ADMIN.toString())){
+            context.setVariable("acceptUrl","http://localhost:8080/api/v1/admin/invite/accept"  + appAdmin.getId());
+        }
+        else {
+            context.setVariable("acceptUrl","http://localhost:8080/api/v1/warehouse-admin/invite/accept"  + appAdmin.getId());
+        }
         context.setVariable("appName", "Zepto");
-        context.setVariable("acceptUrl", "http://localhost:8080/api/v1/admin/invite/accept"+ appAdmin.getId());
+
         context.setVariable("rejectUrl", "https://www.google.com/");
 
 
