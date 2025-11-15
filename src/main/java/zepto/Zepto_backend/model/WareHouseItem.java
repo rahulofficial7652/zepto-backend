@@ -24,7 +24,6 @@ public class WareHouseItem {
     double discount;
     int totalQuantity;
 
-    @OneToMany
-    private List<WareHouseItem> wareHouseItems;
+
 
 }

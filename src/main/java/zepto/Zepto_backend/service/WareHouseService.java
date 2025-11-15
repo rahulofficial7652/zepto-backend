@@ -81,7 +81,7 @@ public class WareHouseService {
         productService.saveOrUpdateProduct(product);
         WareHouseItem wareHouseItem = mappingUtility.mapWareHouseItemToWareHouseItem(wareHouseRequestBody);
         this.saveOrUpdateWareHouseItem(wareHouseItem);
-        wareHouse.getWarehouseItemList().add(wareHouseItem);
+        wareHouse.getWareHouseItems().add(wareHouseItem);
         this.saveOrUpdateWareHouse(wareHouse);
     }
 
